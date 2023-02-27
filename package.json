@@ -1,0 +1,13 @@
+{
+  "name": "esercizi-con-antonello-zanini",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scaper.mjs",
+  "scripts": {
+    "test": "echo \"Scrape-data\" && exit 1",
+    "scrape-data": "node scraper.mjs"
+    
+  },
+  "author": "",
+  "license": "ISC"
+}

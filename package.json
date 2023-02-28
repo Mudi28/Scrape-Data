@@ -2,12 +2,25 @@
   "name": "esercizi-con-antonello-zanini",
   "version": "1.0.0",
   "description": "",
-  "main": "scaper.mjs",
+  "main": "scrapedata.mjs",
   "scripts": {
-    "test": "echo \"Scrape-data\" && exit 1",
-    "scrape-data": "node scraper.mjs"
-    
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scrape-data": "node scrape-data.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mudi28/Scrape-data.git"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mudi28/Scrape-data/issues"
+  },
+  "homepage": "https://github.com/Mudi28/Scrape-data#readme",
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "2.8.4"
+  }
 }

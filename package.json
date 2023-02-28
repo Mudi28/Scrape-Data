@@ -1,8 +1,9 @@
 {
-  "name": "esercizi-con-antonello-zanini",
+  "name": "exercise-with-antonello-zanini",
   "version": "1.0.0",
   "description": "",
   "main": "scrapedata.mjs",
+  "type":"module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "scrape-data": "node scrape-data.mjs"

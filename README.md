@@ -1,7 +1,6 @@
 # Scrape-Data
 
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
 This project was created to understand the following steps:
 - Learning how to build a Node.js application from scratch 

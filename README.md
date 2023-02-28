@@ -1,21 +1,21 @@
-# Scrape-Data
+# scrape-data
 
 
 
-This project was created to understand the following steps:
-- Learning how to build a Node.js application from scratch 
-- How to scrape-data from a website
-- How to use git-hub
-- ✨All this and more! ✨
+this project was created to understand the following steps:
+- learning how to build a Node.js application from scratch 
+- how to scrape-data from a website
+- how to use git-hub
+- ✨all this and more! ✨
 
 
 
-## Installation
+## installation
 
-Install the dependencies and devDependencies and start the server.
+install the dependencies and devDependencies and start the server.
 
 ```sh
-cd FOLDER.NAME
+cd folder.name
 npm install
 ```
 
@@ -26,8 +26,8 @@ npm run scrape-data
 ```
 
 
-## License
+## license
 
-Mudi
+mudi
 
-**Free Software**
+**free software**

@@ -30,8 +30,7 @@ npm run scrape-data
 
 mudi
 
-<<<<<<< HEAD
+
 **free software**
 =======
 **free software**
->>>>>>> new changes

@@ -9,7 +9,7 @@ console.log("ESLint and Prettier are working on save!");
 
 
 
-async function downloadPage() {
+async function Scrapedata() {
   try {
     const response = await axios.get("https://scrapeme.live/shop/page/2/");
     const htmlContent = response.data;
@@ -43,4 +43,4 @@ async function downloadPage() {
   }
 }
 
-downloadPage();
+Scrapedata();

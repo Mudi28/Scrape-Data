@@ -12,7 +12,7 @@ console.log("ESLint and Prettier are working on save!");
 async function Scrapedata() {
   try {
     const response = await axios.get("https://scrapeme.live/shop/page/2/");
-    const htmlContent = response.data;
+    const htmlContent = response.data;  
     const $ = cheerio.load(htmlContent);
 
     // Seleziona gli elementi utilizzando i selettori CSS definiti
@@ -24,7 +24,7 @@ async function Scrapedata() {
         url: $(element)
           .find("a.woocommerce-LoopProduct-link.woocommerce-loop-product__link")
           .attr("href"),
-        price: $(element).find("span.price").text().trim(),
+        price: $(element).find("span.price").text(),
       };
       products.push(product);
     });

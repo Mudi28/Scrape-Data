@@ -1,11 +1,14 @@
 import axios from 'axios'
 import { load } from 'cheerio'
+import fs from 'fs'
+import minimist from 'minimist'
 
-console.log('Hello, World!')
+// Parse command line arguments using minimist
+const args = minimist(process.argv.slice(2), {
+  string: ['export'], // 'export' as a string argument
+  alias: { e: 'export' }, // '-e' as an alias for 'export'
+})
 
-console.log('ESLint and Prettier are working on save!')
-
-console.log('ESLint and Prettier are working on save!')
 // This function scrapes data using the axios and cheerio libraries
 async function scrapeData() {
   try {
@@ -40,7 +43,28 @@ async function scrapeData() {
       products.push(product)
     }
 
-    console.log(products)
+    // Check if the `--export` argument is provided and its value
+    const exportFormat = args.export && args.export.toUpperCase()
+    if (exportFormat === 'JSON') {
+      // Export data to a JSON file
+      const jsonData = JSON.stringify(products)
+      fs.writeFileSync('product.json', jsonData)
+      console.log('Correct export format. Data exported to product.json')
+    } else if (exportFormat === 'CSV') {
+      // Export data to a CSV file
+      const csvData = products
+        .map(
+          (product) =>
+            `${product.name},${product.image},${product.url},${product.price}`,
+        )
+        .join('\n')
+      fs.writeFileSync('product.csv', csvData)
+      console.log('Correct export format. Data exported to product.csv')
+    } else if (exportFormat) {
+      console.error('Invalid export format. Only CSV and JSON are supported.')
+    } else {
+      console.log(products)
+    }
   } catch (error) {
     console.error(error)
   }

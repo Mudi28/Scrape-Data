@@ -1,12 +1,16 @@
 
-# Dependency directories
+# oependency directories
 node_modules/
 
-# Optional npm cache directory
+# optional npm cache directory
 .npm
 
-# Optional eslint cache
+# optional eslint cache
 .eslintcache
 
 # visual studio code
 .vscode
+
+# product.json/csv
+.product.json
+.product.csv

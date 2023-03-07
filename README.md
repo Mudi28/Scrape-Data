@@ -25,11 +25,11 @@ npm run scrape-data
 scrape-data .json
 
 ```sh
-npm run scrape-data --export=json
+npm run scrape-data --export_format json
 
 or (accept case-insensitive)
 
-node scrape-data --export=json
+node scrape-data --export_format json
 node scrape-data -e json
 
 ```
@@ -37,11 +37,11 @@ node scrape-data -e json
 scrape-data .csv
 
 ```sh
-npm run scrape-data --export=csv
+npm run scrape-data --export_format csv
 
 or (accept case-insensitive)
 
-node scrape-data --export=csv
+node scrape-data --export_format csv
 node scrape-data -e csv
 
 ```

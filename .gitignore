@@ -12,6 +12,6 @@ node_modules/
 .vscode
 
 # export-data
-/export-data
+export-data/
 product.json
 product.csv

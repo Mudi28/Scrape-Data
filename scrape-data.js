@@ -51,12 +51,17 @@ scrapeData()
 async function exportData() {
   // parse command line arguments using minimist
   const args = minimist(process.argv.slice(1), {
-    string: ['export'], // 'export' as a string argument
-    alias: { e: 'export' }, // '-e' as an alias for 'export'
+    string: ['export_format'], // 'export' as a string argument
+    alias: { e: 'export_format' }, // '-e' as an alias for 'export'
   })
 
   // check if the `--export` argument is provided and its value
-  const exportFormat = args.export && args.export.toUpperCase()
+  const exportFormat = args.export_format && args.export_format.toUpperCase()
+  if (!exportFormat) {
+    // If export format is not specified, don't export anything
+    return
+  }
+
   // create a folder for the exported files, if it doesn't already exist
   const folderPath = path.join(process.cwd(), 'export-data')
   try {

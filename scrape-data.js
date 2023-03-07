@@ -55,10 +55,10 @@ async function exportData() {
     alias: { e: 'export_format' }, // '-e' as an alias for 'export'
   })
 
-  // check if the `--export` argument is provided and its value
+  // check if the `--export_format` argument is provided and its value
   const exportFormat = args.export_format && args.export_format.toUpperCase()
   if (!exportFormat) {
-    // If export format is not specified, don't export anything
+    // if export format is not specified, don't export anything
     return
   }
 

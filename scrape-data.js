@@ -4,18 +4,25 @@ import minimist from 'minimist'
 import fs from 'fs'
 import path from 'path'
 import os from 'os'
-
-// create an empty array for the extracted products
+// set to keep track of visited pages
+const visitedPages = new Set()
+// array to store products
 const products = []
+// function to generate a random page number between 1 and totalPages
+async function getRandomPageNumber(totalPages) {
+  return Math.floor(Math.random() * totalPages) + 1
+}
 // this function scrapes data using the axios and cheerio libraries
-async function scrapeData() {
+async function scrapeData(pageNumber) {
   try {
     // make an HTTP GET request to the specified URL expecting a response
-    const response = await axios.get('https://scrapeme.live/shop/page/2/')
+    const response = await axios.get(
+      `https://scrapeme.live/shop/page/${pageNumber}`,
+    )
     // extract the HTML content from the request response
-    const htmlContent = response.data
-    // Loading HTML content in the cheerio document
-    const $ = load(htmlContent)
+    const html = response.data
+    // loading HTML content in the cheerio document
+    const $ = load(html)
     // Selects all DOM elements with the class 'product'
     const productElements = $('.product')
     // iterate through each product element.
@@ -39,18 +46,53 @@ async function scrapeData() {
       products.push(product)
     }
 
-    console.log(products)
+    console.log(`Page ${pageNumber} done!`)
+    // export the products array to a json/csv file
     await exportData()
   } catch (error) {
     console.error(error)
   }
 }
-scrapeData()
+// function to get the total number of pages to be scraped
+async function getTotalPages() {
+  try {
+    // make an HTTP GET request to the specified URL expecting a response
+    const response = await axios.get('https://scrapeme.live/shop/page/1/')
+    // extract the HTML content from the request response
+    const html = response.data
+    // loading HTML content in the cheerio document
+    const $ = load(html)
+    // extract the total number of pages
+    const totalPages = parseInt(
+      $('.page-numbers:not(.prev):not(.next)').last().text(),
+    )
+
+    console.log(totalPages)
+    // loop through random pages until all pages have been visited
+    while (visitedPages.size < totalPages) {
+      // generate a random page number using the `getRandomPageNumber` function
+      const randomPageNumber = await getRandomPageNumber(totalPages)
+      // check if the random page number has not been visited before
+      if (!visitedPages.has(randomPageNumber)) {
+        // add the random page number to the set of visited pages
+        visitedPages.add(randomPageNumber)
+        // call the `scrapeData` function with the random page number as an argument
+        await scrapeData(randomPageNumber)
+      }
+    }
+
+    console.log(`Scraping done for ${visitedPages.size} pages!`)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+getTotalPages()
 
 // this function exportData using the minimist library
 async function exportData() {
   // parse command line arguments using minimist
-  const args = minimist(process.argv.slice(1), {
+  const args = minimist(process.argv.slice(2), {
     string: ['export_format'], // 'export' as a string argument
     alias: { e: 'export_format' }, // '-e' as an alias for 'export'
   })

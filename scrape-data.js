@@ -4,7 +4,6 @@ import minimist from 'minimist'
 import fs from 'fs'
 import path from 'path'
 import os from 'os'
-
 // set to keep track of visited pages
 const visitedPages = new Set()
 
@@ -14,6 +13,8 @@ const linksToVisit = ['https://scrapeme.live/shop/page/1/']
 // array to store products
 const products = []
 
+// create write stream for console.log output to file
+const logStream = fs.createWriteStream('file.log', { flags: 'a' })
 async function scrapeData() {
   try {
     // iterate over the links in the queue
@@ -64,20 +65,19 @@ async function scrapeData() {
         // add the product object to the product array.
         products.push(product)
       }
-
+      logStream.write(`Scraped data from ${link}\n`)
       console.log(`Scraped data from ${link}`)
       // select all the elements that represent links to the next page
       const nextPageUrls = $('a.page-numbers')
-      // loop through each of the next page links
-      for (let i = 0; i < nextPageUrls.length; i++) {
-        // get the URL of the current next page link
-        const nextPageUrl = $(nextPageUrls[i]).attr('href')
+      // loop through each of the next page links using .each()
+      nextPageUrls.each(function () {
+        const nextPageUrl = $(this).attr('href')
         // check if the next page URL is not already in the list of links to visit
         if (!linksToVisit.includes(nextPageUrl)) {
           // if the next page URL is not in the list of links to visit, add it to the list
           linksToVisit.push(nextPageUrl)
         }
-      }
+      })
     }
 
     // if there are no more links to visit, export the data to a file

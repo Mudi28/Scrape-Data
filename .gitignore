@@ -15,3 +15,6 @@ node_modules/
 export-data/
 product.json
 product.csv
+
+#file.log
+file.log

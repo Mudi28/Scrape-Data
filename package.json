@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scrape-data": "node scrape-data.js --export=$npm_config_export"
+    "scrape-data": "node scrape-data.js"
   },
   "repository": {
     "type": "git",

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { load } from 'cheerio'
 import { exportData } from './utils/export.mjs'
 import { logger } from './utils/logger.mjs'
-// create write stream for console.log output to file
+
 async function scrapeData() {
   // set to keep track of visited pages
   const visitedPages = new Set()

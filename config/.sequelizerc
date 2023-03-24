@@ -1,0 +1,7 @@
+const path = require('path')
+
+// export an object that defines the configuration options for Sequelize CLI
+module.exports = {
+  // define the path to the config file for Sequelize CLI to use
+  config: path.resolve('config', '../config/config.js'),
+}

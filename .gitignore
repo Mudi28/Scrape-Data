@@ -19,3 +19,5 @@ product.csv
 #log
 log/
 
+#env
+.env

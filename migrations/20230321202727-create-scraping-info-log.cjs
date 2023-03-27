@@ -3,12 +3,33 @@ module.exports = {
   // `up` method is called when the migration is run
   async up(queryInterface, Sequelize) {
     // creates a new table called 'scrapingInfoLogs' in the database
-    await queryInterface.createTable('scrapingInfoLogs', {
+    await queryInterface.createTable('scrapinginfolog', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+      },
+      websiteId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'website', //name of the referenced table
+          key: 'id', //name of the referenced column
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+
+      productId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'product', //name of the referenced table
+          key: 'id', //name of the referenced column
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       HTML: {
         type: Sequelize.TEXT,
@@ -54,6 +75,6 @@ module.exports = {
   //`down` method is called when the migration is rolled back
   async down(queryInterface, Sequelize) {
     // drops the 'webSites' table from the database
-    await queryInterface.dropTable('scrapingInfoLogs')
+    await queryInterface.dropTable('scrapinginfolog')
   },
 }

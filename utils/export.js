@@ -2,8 +2,8 @@ import minimist from 'minimist'
 import path from 'path'
 import os from 'os'
 import fsPromises from 'fs/promises'
-import { logger } from './logger.mjs'
-async function exportData(products) {
+import { logger } from './logger.js'
+export async function exportData([products]) {
   // parse command line arguments using minimist
   const args = minimist(process.argv.slice(2), {
     string: ['export_format'], // 'export' as a string argument
@@ -21,15 +21,14 @@ async function exportData(products) {
   const folderPath = path.join(process.cwd(), 'export-data')
   try {
     await fsPromises.mkdir(folderPath, { recursive: true })
-    logger(` Directory ${folderPath} found successfully! `, {
-      console: true,
-      file: false,
-    })
-  } catch (error) {
-    logger(`Error creating directory: ${error}`, {
+    logger(`[INFO] - Directory : ${folderPath} - Found successfully! `, {
       console: true,
       file: true,
-      filename: 'error.log',
+    })
+  } catch (error) {
+    logger(`[ERROR] - Error creating directory : ${error}`, {
+      console: true,
+      file: true,
     })
   }
 
@@ -39,17 +38,14 @@ async function exportData(products) {
     const filePath = path.join(folderPath, 'product.json')
     try {
       await fsPromises.writeFile(filePath, jsonData)
-      console.log('Correct export format. Data exported to product.json')
-      logger(`Correct export format. Data exported to product.json`, {
+      logger(`[INFO] - Correct export format. Data exported to product.json`, {
         console: true,
         file: true,
-        filename: 'correct.log',
       })
     } catch (error) {
-      logger(`Error exporting data: ${error}`, {
+      logger(`[ERROR] - Error exporting data : ${error}`, {
         console: true,
         file: true,
-        filename: 'error.log',
       })
     }
 
@@ -64,25 +60,23 @@ async function exportData(products) {
     const filePath = path.join(folderPath, 'product.csv')
     try {
       await fsPromises.writeFile(filePath, csvData)
-      console.log('Correct export format. Data exported to product.csv')
-      logger(`Correct export format. Data exported to product.csv`, {
+      logger(`[INFO] - Correct export format. Data exported to product.csv`, {
         console: true,
         file: true,
-        filename: 'correct.log',
       })
     } catch (error) {
-      logger(`Error exporting data: ${error}`, {
+      logger(`[ERROR] - Error exporting data: ${error}`, {
         console: true,
         file: true,
-        filename: 'error.log',
       })
     }
   } else if (exportFormat) {
-    logger(`Invalid export format. Only CSV and JSON are supported.`, {
-      console: true,
-      file: true,
-      filename: 'error.log',
-    })
+    logger(
+      `[ERROR] - Invalid export format. Only CSV and JSON are supported.`,
+      {
+        console: true,
+        file: true,
+      },
+    )
   }
 }
-export { exportData }

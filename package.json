@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scrape-data": "node scrape-data.js",
-    "testconnection": "node testconnection.js"
+    "scrape-data": "node scrape-data.js"
   },
   "repository": {
     "type": "git",

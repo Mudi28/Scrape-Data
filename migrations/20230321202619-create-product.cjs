@@ -3,12 +3,22 @@ module.exports = {
   // `up` method is called when the migration is run
   async up(queryInterface, Sequelize) {
     // creates a new table called 'Products' in the database
-    await queryInterface.createTable('Products', {
+    await queryInterface.createTable('product', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+      },
+      websiteId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'website', //name of the referenced table
+          key: 'id', //name of the referenced column
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       },
       name: {
         type: Sequelize.STRING,
@@ -57,6 +67,6 @@ module.exports = {
   //`down` method is called when the migration is rolled back
   async down(queryInterface, Sequelize) {
     // drops the 'Products' table from the database
-    await queryInterface.dropTable('Products')
+    await queryInterface.dropTable('product')
   },
 }

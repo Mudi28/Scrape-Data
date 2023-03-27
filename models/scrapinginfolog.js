@@ -1,7 +1,7 @@
 'use strict'
 import Model from 'sequelize'
 module.exports = (sequelize, DataTypes) => {
-  class ScrapingInfoLog extends Model {
+  class scrapinginfolog extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.Product, { foreignKey: 'productId' })
-      this.belongsTo(models.webSite, { foreignKey: 'webSiteId' })
+      this.belongsTo(models.webSite, { foreignKey: 'websiteId' })
     }
   }
-  ScrapingInfoLog.init(
+  scrapinginfolog.init(
     {
       HTML: DataTypes.TEXT,
       webSiteId: DataTypes.INTEGER,
@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'scrapingInfoLog',
+      modelName: 'scrapinginfolog',
     },
   )
-  return ScrapingInfoLog
+  return scrapinginfolog
 }

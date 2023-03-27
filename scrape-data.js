@@ -1,11 +1,11 @@
 import axios from 'axios'
 import { load } from 'cheerio'
-import { exportData } from './utils/export.mjs'
-import { logger } from './utils/logger.mjs'
-
+import { exportData } from './utils/export.js'
+import { logger } from './utils/logger.js'
+import * as constants from './constants'
 async function scrapeData() {
   // set to keep track of visited pages
-  const visitedPages = new Set()
+  constants.visitedPages
 
   // queue to keep track of links to visit
   const linksToVisit = ['https://scrapeme.live/shop/page/1/']
@@ -57,16 +57,11 @@ async function scrapeData() {
           url: url,
           price: price,
         }
-        logger(` ${name} `, {
-          console: false,
-          file: true,
-          filename: 'name.log',
-        })
         // add the product object to the product array.
         products.push(product)
       }
 
-      logger(`Scraped data from ${link}`, {
+      logger(`[INFO] - Scraped data from : ${link}`, {
         console: true,
         file: true,
       })
@@ -84,9 +79,12 @@ async function scrapeData() {
     }
 
     // if there are no more links to visit, export the data to a file
-    await exportData(products)
+    await exportData([products])
   } catch (error) {
-    console.error(error)
+    logger(`[ERROR] - Request failed : ${error}`, {
+      console: true,
+      file: true,
+    })
   }
 }
 scrapeData()

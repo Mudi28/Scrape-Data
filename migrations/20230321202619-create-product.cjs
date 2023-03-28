@@ -17,8 +17,6 @@ module.exports = {
           model: 'website', //name of the referenced table
           key: 'id', //name of the referenced column
         },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
       },
       name: {
         type: Sequelize.STRING,
@@ -32,35 +30,15 @@ module.exports = {
       price: {
         type: Sequelize.STRING,
       },
-      active: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
-      createdBy: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      updatedBy: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      deletedAt: {
-        allowNull: true,
-        type: Sequelize.DATE,
-      },
-      deletedBy: {
-        allowNull: true,
-        type: Sequelize.STRING,
       },
     })
   },

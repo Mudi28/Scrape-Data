@@ -13,10 +13,10 @@ export function logger(
   }
   // if the file option is true, the function creates a write stream for the log file
   if (options.file) {
-    // set default filename to 'file.log'
-    const filename = options.filename || 'file.log'
     // create the log directory path relative to the current directory
     const logDir = path.join('.', 'log')
+    // set default filename to 'file.log'
+    const filename = options.filename || 'file.log'
     // create the log file path by joining the log directory path and filename
     const logFilePath = path.join(logDir, filename)
 

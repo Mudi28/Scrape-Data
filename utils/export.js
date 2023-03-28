@@ -19,6 +19,7 @@ export async function exportData([products]) {
 
   // create a folder for the exported files, if it doesn't already exist
   const folderPath = path.join(process.cwd(), 'export-data')
+
   try {
     await fsPromises.mkdir(folderPath, { recursive: true })
     logger(`[INFO] - Directory : ${folderPath} - Found successfully! `, {
@@ -54,7 +55,7 @@ export async function exportData([products]) {
     const csvData = `name,image,url,price${os.EOL}${products
       .map(
         (product) =>
-          `${product.name},${product.image},${product.url},${product.price}`,
+          `${product.name} , ${product.image} , ${product.url} , ${product.price}`,
       )
       .join(os.EOL)}`
     const filePath = path.join(folderPath, 'product.csv')

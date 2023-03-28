@@ -2,10 +2,10 @@ import axios from 'axios'
 import { load } from 'cheerio'
 import { exportData } from './utils/export.js'
 import { logger } from './utils/logger.js'
-import * as constants from './constants'
+// import * as constants from './constants'
 async function scrapeData() {
   // set to keep track of visited pages
-  constants.visitedPages
+  const visitedPages = new Set()
 
   // queue to keep track of links to visit
   const linksToVisit = ['https://scrapeme.live/shop/page/1/']

@@ -4,7 +4,6 @@ dotenv.config()
 // define the configuration object for the environment
 export default {
   development: {
-    environment: 'development',
     username: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,

@@ -1,9 +1,9 @@
-'use strict'
+import { TIMESTAMP } from '../constants'
 module.exports = {
   // `up` method is called when the migration is run
   async up(queryInterface, Sequelize) {
     // creates a new table called 'scrapingInfoLogs' in the database
-    await queryInterface.createTable('scrapinginfolog', {
+    await queryInterface.createTable('scraping-info-log', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -39,18 +39,18 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        defaultValue: Sequelize.literal(TIMESTAMP),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        defaultValue: Sequelize.literal(TIMESTAMP),
       },
     })
   },
   //`down` method is called when the migration is rolled back
   async down(queryInterface, Sequelize) {
     // drops the 'webSites' table from the database
-    await queryInterface.dropTable('scrapinginfolog')
+    await queryInterface.dropTable('scraping-info-log')
   },
 }

@@ -1,4 +1,5 @@
 'use strict'
+import { TIMESTAMP } from '../constants'
 module.exports = {
   // `up` method is called when the migration is run
   async up(queryInterface, Sequelize) {
@@ -16,12 +17,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        defaultValue: Sequelize.literal(TIMESTAMP),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        defaultValue: Sequelize.literal(TIMESTAMP),
       },
     })
   },

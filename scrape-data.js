@@ -2,14 +2,14 @@ import axios from 'axios'
 import { load } from 'cheerio'
 import { exportData } from './utils/export.js'
 import { logger } from './utils/logger.js'
+import * as CONSTANTS from './constants.js'
 // import * as constants from './constants'
 async function scrapeData() {
   // set to keep track of visited pages
   const visitedPages = new Set()
 
   // queue to keep track of links to visit
-  const linksToVisit = ['https://scrapeme.live/shop/page/1/']
-
+  const linksToVisit = [CONSTANTS.SITE1]
   // array to store products
   const products = []
   try {
@@ -37,18 +37,16 @@ async function scrapeData() {
       const $ = load(html)
 
       // Selects all DOM elements with the class 'product'
-      const productElements = $('.product')
+      const productElements = $(CONSTANTS.CSSPRODUCT)
 
       // iterate through each product element.
       for (let i = 0; i < productElements.length; i++) {
         // extract product name,image,url,price from the element
         const element = productElements[i]
-        const name = $(element).find('.woocommerce-loop-product__title').text()
-        const image = $(element).find('img').attr('src')
-        const url = $(element)
-          .find('a.woocommerce-LoopProduct-link.woocommerce-loop-product__link')
-          .attr('href')
-        const price = $(element).find('span.price').text()
+        const name = $(element).find(CONSTANTS.CSSNAME).text()
+        const image = $(element).find(CONSTANTS.CSSIMG).attr('src')
+        const url = $(element).find(CONSTANTS.CSSURL).attr('href')
+        const price = $(element).find(CONSTANTS.PRICE).text()
 
         // create a product object containing the extracted information
         const product = {
@@ -66,7 +64,7 @@ async function scrapeData() {
         file: true,
       })
       // select all the elements that represent links to the next page
-      const nextPageUrls = $('a.page-numbers')
+      const nextPageUrls = $(CONSTANTS.CSSPAGE)
       // loop through each of the next page links using .each()
       nextPageUrls.each(function () {
         const nextPageUrl = $(this).attr('href')

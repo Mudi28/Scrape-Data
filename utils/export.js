@@ -3,11 +3,12 @@ import path from 'path'
 import os from 'os'
 import fsPromises from 'fs/promises'
 import { logger } from './logger.js'
+import * as CONSTANTS from '../constants.js'
 export async function exportData([products]) {
   // parse command line arguments using minimist
   const args = minimist(process.argv.slice(2), {
-    string: ['export_format'], // 'export' as a string argument
-    alias: { e: 'export_format' }, // '-e' as an alias for 'export'
+    string: [CONSTANTS.EXPORTFORMAT], // 'export' as a string argument
+    alias: { e: CONSTANTS.EXPORTFORMAT }, // '-e' as an alias for 'export'
   })
 
   // check if the `--export_format` argument is provided and its value
@@ -18,7 +19,7 @@ export async function exportData([products]) {
   }
 
   // create a folder for the exported files, if it doesn't already exist
-  const folderPath = path.join(process.cwd(), 'export-data')
+  const folderPath = path.join(process.cwd(), CONSTANTS.FOLDERNAME1)
 
   try {
     await fsPromises.mkdir(folderPath, { recursive: true })
@@ -36,7 +37,7 @@ export async function exportData([products]) {
   // export data to a json file
   if (exportFormat === 'JSON') {
     const jsonData = JSON.stringify(products)
-    const filePath = path.join(folderPath, 'product.json')
+    const filePath = path.join(folderPath, CONSTANTS.PRODUCTJSON)
     try {
       await fsPromises.writeFile(filePath, jsonData)
       logger(`[INFO] - Correct export format. Data exported to product.json`, {
@@ -58,7 +59,7 @@ export async function exportData([products]) {
           `${product.name} , ${product.image} , ${product.url} , ${product.price}`,
       )
       .join(os.EOL)}`
-    const filePath = path.join(folderPath, 'product.csv')
+    const filePath = path.join(folderPath, CONSTANTS.PRODUCTCSV)
     try {
       await fsPromises.writeFile(filePath, csvData)
       logger(`[INFO] - Correct export format. Data exported to product.csv`, {

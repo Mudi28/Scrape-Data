@@ -1,0 +1,13 @@
+export const SITE1 = 'https://scrapeme.live/shop/page/1/'
+export const CSSPRODUCT = '.product'
+export const CSSNAME = '.woocommerce-loop-product__title'
+export const CSSIMG = '.img'
+export const CSSURL =
+  'a.woocommerce-LoopProduct-link.woocommerce-loop-product__link'
+export const CSSPRICE = 'span.price'
+export const CSSPAGE = 'a.page-numbers'
+export const TIMESTAMP = 'CURRENT_TIMESTAMP'
+export const FOLDERNAME1 = 'export-data'
+export const EXPORTFORMAT = 'export_format'
+export const PRODUCTJSON = 'product.json'
+export const PRODUCTCSV = 'product.csv'

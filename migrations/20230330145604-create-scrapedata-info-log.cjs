@@ -1,9 +1,7 @@
-import { TIMESTAMP } from '../constants'
 module.exports = {
-  // `up` method is called when the migration is run
   async up(queryInterface, Sequelize) {
-    // creates a new table called 'scrapingInfoLogs' in the database
-    await queryInterface.createTable('scraping-info-log', {
+    const { TIMESTAMP } = await import('../constants.js')
+    await queryInterface.createTable('scrapedata_info_logs', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,11 +12,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'website', //name of the referenced table
+          model: 'web_site', //name of the referenced table
           key: 'id', //name of the referenced column
         },
       },
-
       productId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -27,14 +24,8 @@ module.exports = {
           key: 'id', //name of the referenced column
         },
       },
-      HTML: {
-        type: Sequelize.TEXT,
-      },
-      webSiteId: {
-        type: Sequelize.INTEGER,
-      },
-      productId: {
-        type: Sequelize.INTEGER,
+      html: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -48,9 +39,7 @@ module.exports = {
       },
     })
   },
-  //`down` method is called when the migration is rolled back
   async down(queryInterface, Sequelize) {
-    // drops the 'webSites' table from the database
-    await queryInterface.dropTable('scraping-info-log')
+    await queryInterface.dropTable('scrapedata_info_logs')
   },
 }

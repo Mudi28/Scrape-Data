@@ -4,7 +4,7 @@ import os from 'os'
 import fsPromises from 'fs/promises'
 import { logger } from './logger.js'
 import * as CONSTANTS from '../constants.js'
-export async function exportData([products]) {
+export async function exportData(products) {
   // parse command line arguments using minimist
   const args = minimist(process.argv.slice(2), {
     string: [CONSTANTS.EXPORTFORMAT], // 'export' as a string argument

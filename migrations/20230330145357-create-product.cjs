@@ -1,8 +1,6 @@
-import { TIMESTAMP } from '../constants'
 module.exports = {
-  // `up` method is called when the migration is run
   async up(queryInterface, Sequelize) {
-    // creates a new table called 'Products' in the database
+    const { TIMESTAMP } = await import('../constants.js')
     await queryInterface.createTable('product', {
       id: {
         allowNull: false,
@@ -10,21 +8,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      websiteId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'website', //name of the referenced table
-          key: 'id', //name of the referenced column
-        },
-      },
-      name: {
+      product_name: {
         type: Sequelize.STRING,
       },
-      productUrl: {
+      product_url: {
         type: Sequelize.STRING,
       },
-      imageUrl: {
+      product_image: {
         type: Sequelize.STRING,
       },
       price: {
@@ -42,9 +32,7 @@ module.exports = {
       },
     })
   },
-  //`down` method is called when the migration is rolled back
   async down(queryInterface, Sequelize) {
-    // drops the 'Products' table from the database
     await queryInterface.dropTable('product')
   },
 }

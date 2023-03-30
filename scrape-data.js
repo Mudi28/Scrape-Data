@@ -9,14 +9,14 @@ async function scrapeData() {
   const visitedPages = new Set()
 
   // queue to keep track of links to visit
-  const linksToVisit = [CONSTANTS.SITE1]
+  CONSTANTS.LINKSTOVISIT
   // array to store products
   const products = []
   try {
     // iterate over the links in the queue
-    while (linksToVisit.length > 0) {
+    while (CONSTANTS.LINKSTOVISIT.length > 0) {
       // get the next link to visit from the front of the queue
-      const link = linksToVisit.shift()
+      const link = CONSTANTS.LINKSTOVISIT.shift()
 
       // check if the link has already been visited
       if (visitedPages.has(link)) {
@@ -37,16 +37,20 @@ async function scrapeData() {
       const $ = load(html)
 
       // Selects all DOM elements with the class 'product'
-      const productElements = $(CONSTANTS.CSSPRODUCT)
+      const productElements = $('.product')
 
       // iterate through each product element.
       for (let i = 0; i < productElements.length; i++) {
         // extract product name,image,url,price from the element
         const element = productElements[i]
-        const name = $(element).find(CONSTANTS.CSSNAME).text()
-        const image = $(element).find(CONSTANTS.CSSIMG).attr('src')
-        const url = $(element).find(CONSTANTS.CSSURL).attr('href')
-        const price = $(element).find(CONSTANTS.PRICE).text()
+        const name = $(element).find('.woocommerce-loop-product__title').text()
+        const image = $(element)
+          .find('.attachment-woocommerce_thumbnail')
+          .attr('src')
+        const url = $(element)
+          .find('a.woocommerce-LoopProduct-link.woocommerce-loop-product__link')
+          .attr('href')
+        const price = $(element).find('span.price').text()
 
         // create a product object containing the extracted information
         const product = {
@@ -64,20 +68,20 @@ async function scrapeData() {
         file: true,
       })
       // select all the elements that represent links to the next page
-      const nextPageUrls = $(CONSTANTS.CSSPAGE)
+      const nextPageUrls = $('a.page-numbers')
       // loop through each of the next page links using .each()
       nextPageUrls.each(function () {
         const nextPageUrl = $(this).attr('href')
         // check if the next page URL is not already in the list of links to visit
-        if (!linksToVisit.includes(nextPageUrl)) {
+        if (!CONSTANTS.LINKSTOVISIT.includes(nextPageUrl)) {
           // if the next page URL is not in the list of links to visit, add it to the list
-          linksToVisit.push(nextPageUrl)
+          CONSTANTS.LINKSTOVISIT.push(nextPageUrl)
         }
       })
     }
 
     // if there are no more links to visit, export the data to a file
-    await exportData([products])
+    await exportData(products)
   } catch (error) {
     logger(`[ERROR] - Request failed : ${error}`, {
       console: true,

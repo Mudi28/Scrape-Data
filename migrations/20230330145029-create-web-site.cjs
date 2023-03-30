@@ -1,10 +1,7 @@
-'use strict'
-import { TIMESTAMP } from '../constants'
 module.exports = {
-  // `up` method is called when the migration is run
   async up(queryInterface, Sequelize) {
-    // creates a new table called 'webSites' in the database
-    await queryInterface.createTable('website', {
+    const { TIMESTAMP } = await import('../constants.js')
+    await queryInterface.createTable('web_site', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -26,9 +23,7 @@ module.exports = {
       },
     })
   },
-  //`down` method is called when the migration is rolled back
   async down(queryInterface, Sequelize) {
-    // drops the 'webSites' table from the database
-    await queryInterface.dropTable('website')
+    await queryInterface.dropTable('web_site')
   },
 }

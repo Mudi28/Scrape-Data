@@ -2,21 +2,21 @@ import axios from 'axios'
 import { load } from 'cheerio'
 import { exportData } from './utils/export.js'
 import { logger } from './utils/logger.js'
-import * as CONSTANTS from './constants.js'
+import { LINKSTOVISIT } from './constants.js'
 // import * as constants from './constants'
 async function scrapeData() {
   // set to keep track of visited pages
   const visitedPages = new Set()
 
   // queue to keep track of links to visit
-  CONSTANTS.LINKSTOVISIT
+  LINKSTOVISIT
   // array to store products
   const products = []
   try {
     // iterate over the links in the queue
-    while (CONSTANTS.LINKSTOVISIT.length > 0) {
+    while (LINKSTOVISIT.length > 0) {
       // get the next link to visit from the front of the queue
-      const link = CONSTANTS.LINKSTOVISIT.shift()
+      const link = LINKSTOVISIT.shift()
 
       // check if the link has already been visited
       if (visitedPages.has(link)) {
@@ -73,9 +73,9 @@ async function scrapeData() {
       nextPageUrls.each(function () {
         const nextPageUrl = $(this).attr('href')
         // check if the next page URL is not already in the list of links to visit
-        if (!CONSTANTS.LINKSTOVISIT.includes(nextPageUrl)) {
+        if (!LINKSTOVISIT.includes(nextPageUrl)) {
           // if the next page URL is not in the list of links to visit, add it to the list
-          CONSTANTS.LINKSTOVISIT.push(nextPageUrl)
+          LINKSTOVISIT.push(nextPageUrl)
         }
       })
     }

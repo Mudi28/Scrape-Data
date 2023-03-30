@@ -1,6 +1,5 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const { TIMESTAMP } = await import('../constants.js')
     await queryInterface.createTable('product', {
       id: {
         allowNull: false,
@@ -23,12 +22,12 @@ module.exports = {
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal(TIMESTAMP),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal(TIMESTAMP),
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
     })
   },
